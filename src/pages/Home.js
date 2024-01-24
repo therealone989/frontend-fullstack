@@ -12,7 +12,6 @@ export default function Home() {
 
     const loadUsers=async()=>{
         const result = await axios.get("http://localhost:8080/users");
-        console.log(result.data);
         setUsers(result.data);
     }
 
@@ -39,7 +38,7 @@ export default function Home() {
                             <td>{user.vorname}</td>
                             <td>{user.nachname}</td>
                             <td>{user.email}</td>
-                            <td>{user.passwort}</td>
+                            <td>HASHED</td>
                             <td>{user.rolle}</td>
                             <td>
                                 <button className="btn btn-primary mx-2">View</button>

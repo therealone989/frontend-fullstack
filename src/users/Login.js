@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-export default function Login() {
+export default function Login({ setIsLoggedIn, setUserRole }) {
 
     //Login
     let navigate=useNavigate();
@@ -27,7 +27,9 @@ export default function Login() {
             console.log(response.data); // Enthält User-ID und Rolle
             localStorage.setItem("userId", response.data.userId);
             localStorage.setItem("userRole", response.data.rolle);
-            
+            setIsLoggedIn(true); // Aktualisieren Sie den Zustand in der App-Komponente
+            setUserRole(response.data.rolle); // Aktualisieren Sie den Zustand in der App-Komponente
+            navigate('/'); // Navigieren Sie zur Startseite
             console.log('Login erfolgreich!');
             // Weiterleitung oder andere Aktionen
             // Hier können Sie die Weiterleitung implementieren, z.B. mit react-router
@@ -66,8 +68,10 @@ export default function Login() {
                     onChange={(e)=>onInputChange(e)}
                     />
                 </div>
-                <button type="submit" className="btn btn-outline-primary">Anmelden</button>
+                <button type="submit" className="btn btn-outline-primary m-4">Anmelden</button>
+                
                 </form>
+                <Link className="nav-link" to="/adduser">Registrieren</Link>
             </div>
         </div>
     </div>
