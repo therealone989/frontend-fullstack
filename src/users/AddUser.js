@@ -77,16 +77,21 @@ export default function AddUser() {
                     onChange={(e)=>onInputChange(e)}
                     />
                 </div>
-                <div class="mb-3 text-start">
-                    <label htmlFor="Rolle" className="form-label font-weight-bold">Rolle</label>
-                    <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Nachname Eingeben"
-                    name="rolle"
-                    value={rolle}
-                    onChange={(e)=>onInputChange(e)}
-                    />
+                <div className="mb-3 text-start">
+                    <label htmlFor="Rolle" className="form-label font-weight-bold">
+                        Rolle
+                    </label>
+                    <select
+                        className="form-control"
+                        name="rolle"
+                        value={rolle}
+                        onChange={(e) => onInputChange(e)}>
+                        <option value="" disabled selected>
+                        Rolle auswählen
+                        </option>
+                        <option value="Betreuer">Betreuer</option>
+                        <option value="Lehrer">Lehrer</option>
+                    </select>
                 </div>
                 <button type="submit" className="btn btn-outline-primary">Registrieren</button>
                 </form>

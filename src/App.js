@@ -10,6 +10,9 @@ import Login from './users/Login';
 import Betreuer from './pages/Betreuer';
 import DefaultNav from './layout/DefaultNav';
 import BetreuerNav from './layout/BetreuerNav';
+import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min';
+
+
 
 function App() {
 
