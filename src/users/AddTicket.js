@@ -71,6 +71,7 @@ export default function AddTicket() {
                     name="raumbezeichnung"
                     value={raumbezeichnung}
                     onChange={(e)=>onInputChange(e)}
+                    required
                     />
                 </div>
                 <div class="mb-3 text-start">
@@ -82,6 +83,7 @@ export default function AddTicket() {
                     name="titel"
                     value={titel}
                     onChange={(e)=>onInputChange(e)}
+                    required
                     />
                 </div>
                 <div class="mb-3 text-start">
@@ -93,6 +95,7 @@ export default function AddTicket() {
                     name="problem"
                     value={problem}
                     onChange={(e)=>onInputChange(e)}
+                    required
                     />
                 </div>
                 <button type="submit" className="btn btn-outline-primary">Ticket erstellen</button>
