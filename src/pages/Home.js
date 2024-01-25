@@ -15,6 +15,7 @@ export default function Home() {
 
                 const ticketsResponse = await axios.get("http://localhost:8080/tickets");
                 setTickets(ticketsResponse.data);
+                console.log(ticketsResponse.data);
             } catch (error) {
                 console.error('Fehler beim Abrufen der Daten', error);
             }
@@ -27,6 +28,14 @@ export default function Home() {
         const room = rooms.find(r => r.raumId === roomId);
         return room ? room.titel : 'Unbekannter Raum';
     };
+
+    
+    // Lehrer-ID aus dem LocalStorage abrufen
+    const lehrerId = localStorage.getItem('userId');
+
+    
+    const filteredTickets = tickets.filter(ticket => ticket.lehrerID.toString() === lehrerId);
+
     
 
 
@@ -46,24 +55,24 @@ export default function Home() {
             </thead>
             <tbody>
 
-                {
-                    tickets.map((ticket, index) => (
-                        <tr key={ticket.id}> {/* Achten Sie auf die eindeutige key-Prop */}
-                            <th scope="row">{index + 1}</th>
-                            <td>{getRoomTitleById(ticket.raumID)}</td> {/* Felder entsprechend Ihren Daten anpassen */}
-                            <td>{ticket.titel}</td>
-                            <td>{ticket.problem}</td>
-                            <td>{ticket.zeit}</td> {/* Formatieren Sie ggf. das Datum */}
-                            <td>{ticket.status}</td>
-                            <td>
-                                {/* Schaltflächenaktionen entsprechend anpassen */}
-                                <button className="btn btn-primary mx-2">View</button>
-                                <button className="btn btn-outline-primary mx-2">Edit</button>
-                                <button className="btn btn-danger mx-2">Delete</button>
-                            </td>
-                        </tr>
-                    ))
-                }
+            {
+                    filteredTickets.map((ticket, index) => (
+                            <tr key={ticket.id}>
+                                <th scope="row">{index + 1}</th>
+                                <td>{getRoomTitleById(ticket.raumID)}</td>
+                                <td>{ticket.titel}</td>
+                                <td>{ticket.problem}</td>
+                                <td>{ticket.zeit}</td>
+                                <td>{ticket.status}</td>
+                                <td>
+                                    {/* Schaltflächenaktionen entsprechend anpassen */}
+                                    <button className="btn btn-primary mx-2">View</button>
+                                    <button className="btn btn-outline-primary mx-2">Edit</button>
+                                    <button className="btn btn-danger mx-2">Delete</button>
+                                </td>
+                            </tr>
+                        ))
+                    }
 
             </tbody>
             </table>
