@@ -95,7 +95,7 @@ export default function AddTicket() {
                     onChange={(e)=>onInputChange(e)}
                     />
                 </div>
-                <button type="submit" className="btn btn-outline-primary">Registrieren</button>
+                <button type="submit" className="btn btn-outline-primary">Ticket erstellen</button>
                 </form>
             </div>
         </div>
