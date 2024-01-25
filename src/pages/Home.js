@@ -64,12 +64,6 @@ export default function Home() {
                                 <td>{ticket.problem}</td>
                                 <td>{ticket.zeit}</td>
                                 <td>{ticket.status}</td>
-                                <td>
-                                    {/* Schaltflächenaktionen entsprechend anpassen */}
-                                    <button className="btn btn-primary mx-2">View</button>
-                                    <button className="btn btn-outline-primary mx-2">Edit</button>
-                                    <button className="btn btn-danger mx-2">Delete</button>
-                                </td>
                             </tr>
                         ))
                     }

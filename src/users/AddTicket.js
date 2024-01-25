@@ -16,11 +16,6 @@ export default function AddTicket() {
         let minutes = pad(date.getMinutes());
         let seconds = pad(date.getSeconds());
         let milliseconds = pad(date.getMilliseconds(), 3);
-    
-        // Für die Zeitzone können wir UTC oder die lokale Zeitzone verwenden
-        // UTC: 'Z'
-        // Lokale Zeitzone: Hier wird ein einfaches Format verwendet, 
-        // aber es wird nicht das exakte ISO 8601-Format sein
         let timeZoneOffset = -date.getTimezoneOffset();
         let timeZoneDifference = pad(Math.floor(Math.abs(timeZoneOffset) / 60)) + ':' + pad(Math.abs(timeZoneOffset) % 60);
         let timeZoneFormatted = (timeZoneOffset >= 0 ? '+' : '-') + timeZoneDifference;
