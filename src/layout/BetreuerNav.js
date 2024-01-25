@@ -15,7 +15,7 @@ export default function BetreuerNav({ onLogout }) {
     <nav className="nav navbar-dark bg-blue ">
   <Link className="nav-link" aria-current="page" to="/">Home</Link>
   <Link className="nav-link" to="/">Ticket Bearbeiten</Link>
-  <button onClick={handleLogoutClick}>Logout</button> {/* Logout-Button mit onClick-Handler */}
+  <button className="nav-link" onClick={handleLogoutClick}>Logout</button> {/* Logout-Button mit onClick-Handler */}
 </nav>
   )
 }
