@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 
 export default function AddUser() {
 
@@ -23,11 +24,40 @@ export default function AddUser() {
         setUser({...user,[e.target.name]:e.target.value})
     }
 
+
     const onSubmit= async (e)=>{
-        e.preventDefault();
-        await axios.post("http://localhost:8080/user",user)
-        navigate("/")
+        try {
+            e.preventDefault();
+            // Benutzer erstellen
+            const response = await axios.post("http://localhost:8080/user", user);
+            const userId = response.data.userId; // Angenommen, die ID wird hier zurückgegeben
+            console.log(user);
+            //navigate("/");
+            // Räume zuweisen
+            if (userType === 'Betreuer' && selectedRooms.length > 0) {
+                await assignRoomsToUser(userId, selectedRooms);
+            }
+    
+            //navigate("/");
+        } catch (error) {
+            console.error('Fehler beim Erstellen des Benutzers', error);
+        }
     }
+
+
+    const assignRoomsToUser = async (userId, rooms) => {
+        try {
+            for (const roomId of rooms) {
+                console.log('Zuweisung von Raum:', roomId, 'für User:', userId);
+                await axios.post("http://localhost:8080/usedroom", {
+                    user_in_room: userId,
+                    room_used: roomId
+                });
+            }
+        } catch (error) {
+            console.error('Fehler beim Zuweisen der Räume', error);
+        }
+    };
 
 
     // Räume von Datenbank Getten
@@ -44,7 +74,6 @@ export default function AddUser() {
         try {
             const response = await axios.get("http://localhost:8080/raums");
             setRooms(response.data); // Angenommen, response.data ist ein Array von Räumen
-            console.log(response.data);
         } catch (error) {
             console.error('Fehler beim Abrufen der Raumdaten', error);
         }
@@ -155,6 +184,7 @@ export default function AddUser() {
                 )}
                 <button type="submit" className="btn btn-outline-primary">Registrieren</button>
                 </form>
+                
             </div>
         </div>
     </div>
