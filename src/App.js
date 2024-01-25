@@ -30,7 +30,7 @@ function App() {
     }
   
     if (userRole === "Lehrer") {
-      console.log("test");
+      console.log("tes1t");
       return <Route exact path="/" element={<Home />} />;
     }
   
