@@ -14,6 +14,7 @@ export default function Betreuer() {
             try {
                 const ticketsResponse = await axios.get('http://localhost:8080/tickets');
                 setTickets(ticketsResponse.data);
+                console.log(ticketsResponse.data);
 
                 const roomsResponse = await axios.get("http://localhost:8080/raums");
                 setRooms(roomsResponse.data);
@@ -45,6 +46,17 @@ export default function Betreuer() {
         };
     });
 
+    const updateTicketStatus = async (ticketId, newStatus) => {
+      try {
+          const updatedTicket = await axios.put(`http://localhost:8080/ticket/${ticketId}`, {
+              status: newStatus
+          });
+          setTickets(tickets.map(ticket => ticket.ticketID === ticketId ? { ...ticket, status: updatedTicket.data.status } : ticket));
+      } catch (error) {
+          console.error('Fehler beim Aktualisieren des Ticketstatus', error);
+      }
+    };
+
     return (
         <div className='container'>
             <div className="py-4">
@@ -60,19 +72,28 @@ export default function Betreuer() {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredData.map((data, index) => (
-                            data.tickets.map((ticket, ticketIndex) => (
-                                <tr key={ticket.id}>
-                                    <th scope="row">{index + 1}.{ticketIndex + 1}</th>
-                                    <td>{getRoomTitleById(ticket.raumID)}</td>
-                                    <td>{ticket.titel}</td>
-                                    <td>{ticket.problem}</td>
-                                    <td>{ticket.zeit}</td>
-                                    <td>{ticket.status}</td>
-                                </tr>
-                            ))
-                        ))}
-                    </tbody>
+                      {filteredData.map((data, index) => (
+                          data.tickets.map((ticket, ticketIndex) => (
+                              <tr key={ticket.id}>
+                                  <th scope="row">{index + 1}.{ticketIndex + 1}</th>
+                                  <td>{getRoomTitleById(ticket.raumID)}</td>
+                                  <td>{ticket.titel}</td>
+                                  <td>{ticket.problem}</td>
+                                  <td>{ticket.zeit}</td>
+                                  <td>
+                                      <select 
+                                          value={ticket.status} 
+                                          onChange={(e) => updateTicketStatus(ticket.ticketID, e.target.value)}
+                                      >
+                                          <option value="Offen">Offen</option>
+                                          <option value="In Bearbeitung">In Bearbeitung</option>
+                                          <option value="Fertig">Fertig</option>
+                                      </select>
+                                  </td>
+                              </tr>
+                          ))
+                      ))}
+                  </tbody>
                 </table>
             </div>
         </div>
