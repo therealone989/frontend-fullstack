@@ -38,7 +38,7 @@ export default function AddUser() {
                     <input
                     type="text"
                     className="form-control"
-                    placeholder="Nachname Eingeben"
+                    placeholder="Vorname eingeben"
                     name="vorname"
                     value={vorname}
                     onChange={(e)=>onInputChange(e)}
@@ -71,7 +71,7 @@ export default function AddUser() {
                     <input
                     type="password"
                     className="form-control"
-                    placeholder="Nachname Eingeben"
+                    placeholder="Passwort eingeben"
                     name="passwort"
                     value={passwort}
                     onChange={(e)=>onInputChange(e)}
