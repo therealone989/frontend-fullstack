@@ -24,16 +24,13 @@ export default function Login({ setIsLoggedIn, setUserRole }) {
         e.preventDefault();
         try {
             const response = await axios.post("http://localhost:8080/login", { email, passwort });
-            console.log(response.data); // Enthält User-ID und Rolle
+            console.log(response.data); // User-ID und Rolle
             localStorage.setItem("userId", response.data.userId);
             localStorage.setItem("userRole", response.data.rolle);
-            setIsLoggedIn(true); // Aktualisieren Sie den Zustand in der App-Komponente
-            setUserRole(response.data.rolle); // Aktualisieren Sie den Zustand in der App-Komponente
-            navigate('/'); // Navigieren Sie zur Startseite
+            setIsLoggedIn(true); // Aktualisieren App-Komponente
+            setUserRole(response.data.rolle); // Aktualisieren App-Komponente
+            navigate('/'); // (Neuladen)
             console.log('Login erfolgreich!');
-            // Weiterleitung oder andere Aktionen
-            // Hier können Sie die Weiterleitung implementieren, z.B. mit react-router
-            // navigate('/dashboard');
         } catch (error) {
             // Fehlerbehandlung
             console.error("Fehler bei der Anmeldung", error);

@@ -1,11 +1,14 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export default function AddUser() {
 
     let navigate=useNavigate();
 
+
+    // User JSON an Backend übergeben
     const [user,setUser]=useState({
         vorname:"",
         nachname:"",
@@ -25,6 +28,45 @@ export default function AddUser() {
         await axios.post("http://localhost:8080/user",user)
         navigate("/")
     }
+
+
+    // Räume von Datenbank Getten
+    const [rooms, setRooms] = useState([]);
+    const [selectedRooms, setSelectedRooms] = useState([]);
+    const [userType, setUserType] = useState('');
+
+    useEffect(() => {
+        // Laden der Raumdaten beim Initialisieren der Komponente
+        fetchRooms();
+    }, []);
+
+    const fetchRooms = async () => {
+        try {
+            const response = await axios.get("http://localhost:8080/raums");
+            setRooms(response.data); // Angenommen, response.data ist ein Array von Räumen
+            console.log(response.data);
+        } catch (error) {
+            console.error('Fehler beim Abrufen der Raumdaten', error);
+        }
+    };
+
+    const handleRoomCheck = (roomId) => {
+        setSelectedRooms(prevSelectedRooms => {
+            if (prevSelectedRooms.includes(roomId)) {
+                return prevSelectedRooms.filter(id => id !== roomId);
+            } else {
+                return [...prevSelectedRooms, roomId];
+            }
+        });
+    };
+
+    const handleRoleChange = (e) => {
+        // Aktualisieren Sie den userType für die Anzeige der Räume
+        setUserType(e.target.value);
+    
+        // Aktualisieren Sie die Rolle im User-Objekt
+        onInputChange(e);
+    };
 
   return (
     <div class="container">
@@ -85,14 +127,32 @@ export default function AddUser() {
                         className="form-control"
                         name="rolle"
                         value={rolle}
-                        onChange={(e) => onInputChange(e)}>
+                        onChange={handleRoleChange}>
                         <option value="" disabled selected>
-                        Rolle auswählen
+                        Rolle auswählen!
                         </option>
                         <option value="Betreuer">Betreuer</option>
                         <option value="Lehrer">Lehrer</option>
                     </select>
+
+                    {/* Räume als checkbox auswählbar wenn man Betreuer wählt */}
                 </div>
+                {userType === 'Betreuer' && (
+                    <div className="custom-grid col-md-12 border rounded p-4 mt-2 shadow">
+                        <h4 className="">Räume</h4>
+                        {rooms.map(room => (
+                        <div className="col-md" key={room.raumId}> {/* Hier verwenden Sie room.id als Schlüssel */}
+                            <input
+                                type="checkbox"
+                                id={`room-${room.raumId}`}
+                                checked={selectedRooms.includes(room.raumId)}
+                                onChange={() => handleRoomCheck(room.raumId)}
+                            />
+                            <label htmlFor={`room-${room.raumId}`}>{room.titel}</label>
+                        </div>
+                        ))}
+                    </div>
+                )}
                 <button type="submit" className="btn btn-outline-primary">Registrieren</button>
                 </form>
             </div>
