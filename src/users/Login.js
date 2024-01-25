@@ -52,6 +52,7 @@ export default function Login({ setIsLoggedIn, setUserRole }) {
                     name="email"
                     value={email}
                     onChange={(e)=>onInputChange(e)}
+                    required
                     />
                 </div>
                 <div class="mb-3 text-start">
@@ -63,6 +64,7 @@ export default function Login({ setIsLoggedIn, setUserRole }) {
                     name="passwort"
                     value={passwort}
                     onChange={(e)=>onInputChange(e)}
+                    required
                     />
                 </div>
                 <button type="submit" className="btn btn-outline-primary m-4">Anmelden</button>
