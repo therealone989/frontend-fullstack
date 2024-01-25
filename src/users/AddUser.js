@@ -32,7 +32,7 @@ export default function AddUser() {
             const response = await axios.post("http://localhost:8080/user", user);
             const userId = response.data.userId; // Angenommen, die ID wird hier zurückgegeben
             console.log(user);
-            //navigate("/");
+            navigate("/");
             // Räume zuweisen
             if (userType === 'Betreuer' && selectedRooms.length > 0) {
                 await assignRoomsToUser(userId, selectedRooms);
@@ -113,6 +113,7 @@ export default function AddUser() {
                     name="vorname"
                     value={vorname}
                     onChange={(e)=>onInputChange(e)}
+                    required
                     />
                 </div>
                 <div class="mb-3 text-start">
@@ -124,6 +125,7 @@ export default function AddUser() {
                     name="nachname"
                     value={nachname}
                     onChange={(e)=>onInputChange(e)}
+                    required
                     />
                 </div>
                 <div class="mb-3 text-start">
@@ -135,6 +137,7 @@ export default function AddUser() {
                     name="email"
                     value={email}
                     onChange={(e)=>onInputChange(e)}
+                    required
                     />
                 </div>
                 <div class="mb-3 text-start">
@@ -146,6 +149,7 @@ export default function AddUser() {
                     name="passwort"
                     value={passwort}
                     onChange={(e)=>onInputChange(e)}
+                    required
                     />
                 </div>
                 <div className="mb-3 text-start">
