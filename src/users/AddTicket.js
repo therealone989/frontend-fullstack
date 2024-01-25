@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 export default function AddTicket() {
 
@@ -33,8 +34,8 @@ export default function AddTicket() {
     let navigate=useNavigate();
 
     const [ticket,setTicket]=useState({
-        lehrerID:1,
-        raumID:1,
+        lehrerID:localStorage.getItem("userId"),
+        raumID:"",
         status:"offen",
         zeit:datetime,
         raumbezeichnung:"",
@@ -56,23 +57,49 @@ export default function AddTicket() {
 
 
 
+    const [rooms, setRooms] = useState([]); // Zum Speichern der verfügbaren Räume
+
+    useEffect(() => {
+        const fetchRooms = async () => {
+            try {
+                const response = await axios.get("http://localhost:8080/raums");
+                console.log(response.data);
+                setRooms(response.data); // Speichert die Räume im State
+            } catch (error) {
+                console.error('Fehler beim Abrufen der Raumdaten', error);
+            }
+        };
+
+        fetchRooms();
+    }, []);
+
+    const handleRoomSelection = (e) => {
+        setTicket({ ...ticket, raumID: e.target.value });
+    };
+
   return (
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2 border rounded p-4 mt-2 shadow">
                 <h2 class="text-center m-4">Ticket Erstellen</h2>
                 <form onSubmit={(e) => onSubmit(e)}>
-                <div class="mb-3 text-start">
-                    <label htmlFor="Raumbezeichnung" className="form-label">Raumbezeichnung</label>
-                    <input
-                    type="text"
+                <div className="mb-3 text-start">
+                <label htmlFor="RaumID" className="form-label">Raum</label>
+                <select
                     className="form-control"
-                    placeholder="Raumbezeichnung Eingeben"
-                    name="raumbezeichnung"
-                    value={raumbezeichnung}
-                    onChange={(e)=>onInputChange(e)}
+                    name="raumID"
+                    value={ticket.raumID}
+                    onChange={handleRoomSelection}
                     required
-                    />
+                    >
+                    <option value="" disabled>Auswählen</option>
+                    {rooms.map(room => (
+                       
+                        <option key={room.raumId} value={room.raumId}>
+                            {room.titel}
+                        </option>
+                    ))}
+                </select>
                 </div>
                 <div class="mb-3 text-start">
                     <label htmlFor="Titel" className="form-label">Titel</label>
