@@ -73,10 +73,10 @@ export default function AddTicket() {
     };
 
   return (
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 offset-md-2 border rounded p-4 mt-2 shadow">
-                <h2 class="text-center m-4">Ticket Erstellen</h2>
+    <div className="container">
+        <div className="row">
+            <div className="col-md-8 offset-md-2 border rounded p-4 mt-2 shadow">
+                <h2 className="text-center m-4">Ticket Erstellen</h2>
                 <form onSubmit={(e) => onSubmit(e)}>
                 <div className="mb-3 text-start">
                 <label htmlFor="RaumID" className="form-label">Raum</label>
@@ -96,7 +96,7 @@ export default function AddTicket() {
                     ))}
                 </select>
                 </div>
-                <div class="mb-3 text-start">
+                <div className="mb-3 text-start">
                     <label htmlFor="Titel" className="form-label">Titel</label>
                     <input
                     type="text"
@@ -108,7 +108,7 @@ export default function AddTicket() {
                     required
                     />
                 </div>
-                <div class="mb-3 text-start">
+                <div className="mb-3 text-start">
                     <label htmlFor="Problem" className="form-label">Beschreibung des Problems</label>
                     <textarea
                     type="text"

@@ -13,7 +13,6 @@ import BetreuerNav from './layout/BetreuerNav';
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min';
 
 
-
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -25,20 +24,26 @@ function App() {
       setIsLoggedIn(true);
       setUserRole(role);
     }
+    
   }, []);
 
   function renderRouteForRole() {
     if (!isLoggedIn) {
-      return <Route exact path="/" element={<Login setIsLoggedIn={setIsLoggedIn} setUserRole={setUserRole} />} />;
+      return [
+        <Route key="login" exact path="/" element={<Login setIsLoggedIn={setIsLoggedIn} setUserRole={setUserRole} />} />,
+        <Route key="adduser" path="/adduser" element={<AddUser />} />
+      ];
     }
   
     if (userRole === "Lehrer") {
-      console.log("tes1t");
-      return <Route exact path="/" element={<Home />} />;
+      return [
+        <Route key="home" exact path="/" element={<Home />} />,
+        <Route key="addticket" path="/addticket" element={<AddTicket />} />
+      ];
     }
   
     if (userRole === "Betreuer") {
-      return <Route exact path="/" element={<Betreuer />} />;
+      return <Route key="betreuer" exact path="/" element={<Betreuer />} />;
     }
   
     return null;
@@ -64,7 +69,6 @@ function App() {
   }
 
 
-  
 
   return (
     <div className="App">
@@ -73,8 +77,6 @@ function App() {
         <Routes>
           {renderRouteForRole()}
           {/* Standardmäßig zugreifbar */}
-          <Route path="/adduser" element={<AddUser />} />
-          <Route path="/addticket" element={<AddTicket />} />
           {/* Weitere Routen können hier hinzugefügt werden, falls benötigt */}
         </Routes>
       </Router>

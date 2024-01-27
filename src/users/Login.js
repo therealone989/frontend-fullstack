@@ -38,12 +38,12 @@ export default function Login({ setIsLoggedIn, setUserRole }) {
     };
 
   return (
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 offset-md-2 border rounded p-4 mt-2 shadow">
-                <h2 class="text-center m-4">Anmelden</h2>
+    <div className="container">
+        <div className="row">
+            <div className="col-md-8 offset-md-2 border rounded p-4 mt-2 shadow">
+                <h2 className="text-center m-4">Anmelden</h2>
                 <form onSubmit={(e) => onSubmit(e)}>
-                <div class="mb-3 text-start">
+                <div className="mb-3 text-start">
                     <label htmlFor="Email" className="form-label">E-Mail</label>
                     <input
                     type="text"
@@ -55,10 +55,10 @@ export default function Login({ setIsLoggedIn, setUserRole }) {
                     required
                     />
                 </div>
-                <div class="mb-3 text-start">
+                <div className="mb-3 text-start">
                     <label htmlFor="Passwort" className="form-label">Passwort</label>
                     <input
-                    type="text"
+                    type="password"
                     className="form-control"
                     placeholder="Passwort"
                     name="passwort"

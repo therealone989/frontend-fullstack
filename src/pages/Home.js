@@ -15,7 +15,6 @@ export default function Home() {
 
                 const ticketsResponse = await axios.get("http://localhost:8080/tickets");
                 setTickets(ticketsResponse.data);
-                console.log(ticketsResponse.data);
             } catch (error) {
                 console.error('Fehler beim Abrufen der Daten', error);
             }
@@ -56,8 +55,8 @@ export default function Home() {
             <tbody>
 
             {
-                    filteredTickets.map((ticket, index) => (
-                            <tr key={ticket.id}>
+                    filteredTickets.flatMap((ticket, index) => (
+                            <tr key={`${ticket.id}-${index}`}>
                                 <th scope="row">{index + 1}</th>
                                 <td>{getRoomTitleById(ticket.raumID)}</td>
                                 <td>{ticket.titel}</td>

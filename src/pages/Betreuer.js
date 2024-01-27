@@ -72,9 +72,9 @@ export default function Betreuer() {
                         </tr>
                     </thead>
                     <tbody>
-                      {filteredData.map((data, index) => (
+                      {filteredData.flatMap((data, index) => (
                           data.tickets.map((ticket, ticketIndex) => (
-                              <tr key={ticket.id}>
+                              <tr key={`${index}-${ticketIndex}`}>
                                   <th scope="row">{index + 1}.{ticketIndex + 1}</th>
                                   <td>{getRoomTitleById(ticket.raumID)}</td>
                                   <td>{ticket.titel}</td>

@@ -98,13 +98,13 @@ export default function AddUser() {
     };
 
   return (
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 offset-md-2 border rounded p-4 mt-2 shadow">
-                <h2 class="text-center m-4">Benutzer Registrieren</h2>
+    <div className="container">
+        <div className="row">
+            <div className="col-md-8 offset-md-2 border rounded p-4 mt-2 shadow">
+                <h2 className="text-center m-4">Benutzer Registrieren</h2>
 
                 <form onSubmit={(e) => onSubmit(e)}>
-                <div class="mb-3 text-start">
+                <div className="mb-3 text-start">
                     <label htmlFor="Vorname" className="form-label">Vorname</label>
                     <input
                     type="text"
@@ -116,7 +116,7 @@ export default function AddUser() {
                     required
                     />
                 </div>
-                <div class="mb-3 text-start">
+                <div className="mb-3 text-start">
                     <label htmlFor="Nachname" className="form-label">Nachname</label>
                     <input
                     type="text"
@@ -128,7 +128,7 @@ export default function AddUser() {
                     required
                     />
                 </div>
-                <div class="mb-3 text-start">
+                <div className="mb-3 text-start">
                     <label htmlFor="Email" className="form-label">Email</label>
                     <input
                     type="email"
@@ -140,7 +140,7 @@ export default function AddUser() {
                     required
                     />
                 </div>
-                <div class="mb-3 text-start">
+                <div className="mb-3 text-start">
                     <label htmlFor="Passwort" className="form-label">Passwort</label>
                     <input
                     type="password"
@@ -161,7 +161,7 @@ export default function AddUser() {
                         name="rolle"
                         value={rolle}
                         onChange={handleRoleChange}>
-                        <option value="" disabled selected>
+                        <option value="" disabled>
                         Rolle auswählen!
                         </option>
                         <option value="Betreuer">Betreuer</option>
